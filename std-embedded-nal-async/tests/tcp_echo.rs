@@ -1,4 +1,5 @@
-use embedded_nal_async::{SocketAddr, TcpConnect};
+use embedded_nal_async::TcpConnect;
+use std::net::SocketAddr;
 
 // embedded_nal_async has no TCP server functionality, running one on blocking standard.
 fn start_server(addr: &str) -> std::net::TcpListener {

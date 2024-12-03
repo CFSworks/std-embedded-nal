@@ -1,7 +1,7 @@
 //! DNS implementation based on async_std
 
-use async_std::net::{SocketAddr, ToSocketAddrs};
-use embedded_nal_async::{AddrType, IpAddr};
+use async_std::net::{IpAddr, SocketAddr, ToSocketAddrs};
+use embedded_nal_async::AddrType;
 
 /// An std::io::Error compatible error type constructable when to_socket_addrs comes up empty
 /// (because it does not produce an error of its own)
@@ -64,8 +64,7 @@ impl embedded_nal_async::Dns for crate::Stack {
         addr: IpAddr,
         result: &mut [u8],
     ) -> Result<usize, Self::Error> {
-        let fakesocketaddr =
-            std::net::SocketAddr::new(crate::conversion::IpAddr::from(addr).into(), 1234);
+        let fakesocketaddr = SocketAddr::new(addr, 1234);
 
         let (name, _service) =
             async_std::task::spawn_blocking(move || dns_lookup::getnameinfo(&fakesocketaddr, 0))

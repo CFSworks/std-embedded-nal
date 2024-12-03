@@ -3,6 +3,7 @@
 //! This depends on a common setup of "localhost" names.
 
 use embedded_nal_async::{AddrType, Dns};
+use std::net::IpAddr;
 
 #[test]
 fn resolve_localhost() {
@@ -12,17 +13,17 @@ fn resolve_localhost() {
             .get_host_by_name("localhost", AddrType::IPv4)
             .await
             .unwrap();
-        assert!(localhost_v4 == "127.0.0.1".parse::<embedded_nal_async::IpAddr>().unwrap());
+        assert!(localhost_v4 == "127.0.0.1".parse::<IpAddr>().unwrap());
         let localhost_v6 = stack
             .get_host_by_name("localhost", AddrType::IPv6)
             .await
             .unwrap();
-        assert!(localhost_v6 == "::1".parse::<embedded_nal_async::IpAddr>().unwrap());
+        assert!(localhost_v6 == "::1".parse::<IpAddr>().unwrap());
         let localhost_any = stack
             .get_host_by_name("localhost", AddrType::Either)
             .await
             .unwrap();
-        assert!(localhost_any == "::1".parse::<embedded_nal_async::IpAddr>().unwrap());
+        assert!(localhost_any == "::1".parse::<IpAddr>().unwrap());
     });
 }
 

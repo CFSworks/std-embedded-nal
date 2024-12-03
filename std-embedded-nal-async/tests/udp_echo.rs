@@ -1,4 +1,5 @@
-use embedded_nal_async::{ConnectedUdp, SocketAddr, UdpStack, UnconnectedUdp};
+use embedded_nal_async::{ConnectedUdp, UdpStack, UnconnectedUdp};
+use std::net::SocketAddr;
 
 async fn echo(stack: &mut impl UdpStack, addr: &str) {
     let addr: SocketAddr = addr.parse().unwrap();

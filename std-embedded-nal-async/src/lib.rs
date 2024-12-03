@@ -32,7 +32,6 @@
 //! that uses up the buffers before it waits again) this makes an acutal difference when running on
 //! full link time optimization.
 
-mod conversion;
 mod dns;
 mod tcp;
 mod udp;

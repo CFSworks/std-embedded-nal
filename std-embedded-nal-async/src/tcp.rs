@@ -1,22 +1,17 @@
 //! TCP implementation on the standard stack for embedded-nal-async
 
-use crate::conversion;
 use std::io::Error;
+use std::net::SocketAddr;
 
 impl embedded_nal_async::TcpConnect for crate::Stack {
     type Error = Error;
 
     type Connection<'a> = TcpConnection;
 
-    async fn connect<'a>(
-        &'a self,
-        addr: embedded_nal_async::SocketAddr,
-    ) -> Result<Self::Connection<'a>, Error> {
-        async_std::net::TcpStream::connect(async_std::net::SocketAddr::from(
-            conversion::SocketAddr::from(addr),
-        ))
-        .await
-        .map(TcpConnection)
+    async fn connect<'a>(&'a self, addr: SocketAddr) -> Result<Self::Connection<'a>, Error> {
+        async_std::net::TcpStream::connect(addr)
+            .await
+            .map(TcpConnection)
     }
 }
 
